@@ -1,0 +1,36 @@
+{
+  "incident_id": "SIM-DOCKER-001",
+  "title": "Application container restarts during startup",
+  "service": "orders-api",
+  "environment": "local-simulation",
+  "description": "The application exits during startup and the container runtime repeatedly restarts it.",
+  "simulated": true,
+  "container_status": {
+    "name": "orders-api",
+    "state": "restarting",
+    "restart_count": 4,
+    "exit_code": 1
+  },
+  "logs": [
+    {
+      "timestamp": "2026-10-12T09:14:00Z",
+      "level": "INFO",
+      "message": "Starting orders-api in local-simulation"
+    },
+    {
+      "timestamp": "2026-10-12T09:14:01Z",
+      "level": "ERROR",
+      "message": "Startup failed: required environment variable DATABASE_URL is missing"
+    },
+    {
+      "timestamp": "2026-10-12T09:14:01Z",
+      "level": "INFO",
+      "message": "Process exited with status 1"
+    }
+  ],
+  "environment_configuration": {
+    "required_variables": ["DATABASE_URL", "APP_ENV"],
+    "configured_variables": ["APP_ENV"],
+    "values_included": false
+  }
+}

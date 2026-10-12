@@ -1,0 +1,16 @@
+{
+  "incident_id": "SIM-DOCKER-001",
+  "expected_root_cause": "The application exits during startup because the required DATABASE_URL environment variable is not configured.",
+  "required_evidence": [
+    "container state is restarting",
+    "restart count is 4",
+    "Startup failed: required environment variable DATABASE_URL is missing",
+    "DATABASE_URL is required but not configured"
+  ],
+  "recommended_remediation": "Configure DATABASE_URL for the service through the deployment's approved secret-management mechanism, then restart the service and verify its health. Do not place the secret value in source control or incident reports.",
+  "preventive_measures": [
+    "Validate required configuration before the application starts.",
+    "Document required variables with safe examples that contain no credentials.",
+    "Add a startup or deployment check that reports missing variable names without printing values."
+  ]
+}
