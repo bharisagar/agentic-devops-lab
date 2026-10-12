@@ -6,6 +6,40 @@ The first incident is simple: an `orders-api` container keeps restarting. We hav
 
 Everything in Day 1 is simulated. The example does not connect to Docker, AWS, an AI model, or any external service. You can run it on your laptop without cloud credentials or a model API key.
 
+## First, see the whole picture
+
+Before we build anything, let’s understand where this small lab can lead. An engineer reports an incident. An agent workflow gathers evidence using approved tools, looks up relevant runbook notes, and prepares a diagnosis for the engineer to review.
+
+In a real AWS deployment, a browser could load the interface through CloudFront. The request could pass through API Gateway and a private load-balancer connection to an agent service running in private subnets. That service could use LangGraph to manage the investigation, OpenSearch to retrieve runbook passages, and a language model to help interpret evidence. The model might be hosted by Amazon Bedrock or reached through a carefully controlled connection to another provider.
+
+```mermaid
+flowchart LR
+    User[Engineer in browser] --> CF[CloudFront: web interface]
+    CF --> UI[S3: static files]
+    User --> APIGW[API Gateway: API entry point]
+    APIGW --> Link[VPC Link]
+    Link --> ALB[Internal application load balancer]
+    ALB --> ECS[Agent API on ECS in private subnets]
+    ECS --> LG[LangGraph investigation workflow]
+    LG --> Tools[Approved read-only DevOps tools]
+    Tools --> AWS[CloudWatch and selected AWS APIs]
+    LG --> OS[OpenSearch: runbook retrieval]
+    Notes[Runbook documents] --> OS
+    LG --> Model[Language model endpoint]
+    Model -. option 1 .-> Bedrock[Amazon Bedrock]
+    Model -. option 2 .-> External[External model API via controlled egress]
+    LG --> Result[Evidence-backed report for engineer]
+```
+
+Here is what those pieces do in plain language:
+
+- **LangGraph** coordinates the investigation steps: what to inspect, what to do with the results, and when to stop. It is the workflow, not the language model.
+- **RAG** means the system searches selected runbooks for useful passages and gives those passages to the model with the incident evidence. OpenSearch can store and retrieve those passages. It does not train the model.
+- **Model choice** depends on the job, quality, response time, privacy, cost, and available provider. A generative model helps interpret evidence; a separate embedding model may turn runbook text and questions into vectors for semantic search.
+- **CloudFront, API Gateway, VPC Link, the load balancer, and ECS** are possible ways to deliver and run the service on AWS. They do not make the agent intelligent by themselves.
+
+This is our destination map, not what Day 1 deploys. We’ll explain each concept as it becomes useful. The Day 1 hands-on version runs locally: incident fixture → three inspection functions → known rule → report. LangGraph comes on Day 4, runbook retrieval on Day 5, and optional AWS checks on Day 7.
+
 ## Day 1: investigate the incident
 
 The app exits because the required `DATABASE_URL` variable is missing. The investigator finds that from the log and configuration evidence, then includes both in its report. The expected answer is kept in a separate file for tests; the investigation code never sees it.
