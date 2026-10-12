@@ -1,0 +1,29 @@
+# Glossary
+
+- **Agent:** an application that uses a model to choose or sequence bounded tools toward a goal. *Example:* inspect status, then choose to read logs.
+- **ALB:** Application Load Balancer; Layer 7 HTTP/HTTPS routing. *Example:* send `/api/*` to the agent service target group.
+- **Authentication:** checking who a caller is. *Example:* validate a signed login token.
+- **Authorization:** deciding what an authenticated caller may access or do. *Example:* permit staging but deny production-cluster inspection.
+- **Checkpoint:** persisted workflow state used to resume or inspect execution. *Example:* save a paused investigation while an engineer reviews a proposed action.
+- **Chunk:** a passage split from a larger document for indexing and retrieval. *Example:* one “startup probe failure” procedure from a longer Kubernetes runbook.
+- **CIDR:** notation for an IP address range. *Example:* `10.20.0.0/16` describes a VPC IPv4 range.
+- **Embedding:** numeric vector generated from content to represent semantic features for similarity search. *Example:* encode a question about a restarting pod to find similarly worded runbooks.
+- **Fargate:** managed serverless compute engine for containers used with ECS or EKS. *Example:* run an agent API task without managing its EC2 host.
+- **Foundation model:** a broadly trained model adapted to many downstream tasks. *Example:* a hosted model used to summarize incident evidence.
+- **Hybrid search:** combination of lexical/keyword and semantic/vector retrieval. *Example:* match exact `ExitCode=137` and semantically find memory-pressure guidance.
+- **IAM role:** identity with temporary credentials and attached permissions for a user or workload. *Example:* a task role allowed to read selected CloudWatch log groups.
+- **LLM:** large language model, a generative model for language tasks. *Example:* draft an incident report from returned evidence.
+- **NACL:** network access control list; stateless subnet-level network filter. *Example:* allow and deny selected subnet ingress/egress rules, including response traffic.
+- **NAT Gateway:** managed network address translation service commonly used for private-subnet outbound internet access. *Example:* an app downloads an approved external API response; NAT does not filter that destination by itself.
+- **Node:** one computation step in a graph workflow. *Example:* a `collect_logs` node calls an approved log tool.
+- **OpenSearch index:** searchable collection of documents with field mappings and shard layout. *Example:* the `runbooks-current` index stores chunks, metadata, and embeddings.
+- **Prompt injection:** untrusted text that attempts to manipulate model behavior or override intended instructions. *Example:* a log line asks the model to ignore policy and delete a namespace.
+- **RAG:** retrieval-augmented generation; retrieve external content and provide it as model context. *Example:* add the current deployment runbook section to the model request.
+- **Reranker:** model or algorithm that reorders retrieved candidates by relevance. *Example:* promote the probe-specific procedure above generic cluster guidance.
+- **RPO:** Recovery Point Objective; acceptable data-loss interval after an incident. *Example:* the maximum tolerated loss of recent investigation state.
+- **RTO:** Recovery Time Objective; target time to restore service. *Example:* the agreed time within which the investigation API should recover.
+- **Shard:** partition of an OpenSearch index. *Example:* several primary shards divide runbook documents across data nodes.
+- **Tool:** typed application function available to a model-assisted workflow, executed only after application validation and authorization. *Example:* read events for one allowed Kubernetes pod.
+- **VPC endpoint:** private connectivity option to supported AWS services or endpoint services. *Example:* route supported S3 or Bedrock traffic without a public internet path.
+- **Vector database:** a store optimized to index and search numeric embeddings by similarity. *Example:* retrieve runbook passages about symptoms similar to the incident question.
+- **Workflow state:** structured data carried between nodes during one investigation. *Example:* investigation ID, step count, evidence references, and stop reason.

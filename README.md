@@ -58,6 +58,7 @@ Day 1 is the script. Later lessons will add the agent behavior.
 
 - [Architecture and data flow](docs/architecture.md)
 - [Day 1–10 learning roadmap](docs/learning-roadmap.md)
+- [Agentic DevOps concept notes](agentic-devops-notes/README.md)
 - [Security model](docs/security-model.md)
 - [Simulated incident](scenarios/container-restart/incident.json)
 - [Expected findings used by tests](scenarios/container-restart/expected-findings.json)
