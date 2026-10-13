@@ -35,13 +35,17 @@ def inspect_container_status(incident: Incident) -> DiagnosticEvidence:
     )
 
 
-def read_container_logs(incident: Incident) -> DiagnosticEvidence:
+def read_container_logs(incident: Incident, *, limit: int | None = None) -> DiagnosticEvidence:
     _require_incident(incident)
-    details = tuple(f"{entry.timestamp} — {entry.level} — {_redact(entry.message)}" for entry in incident.logs)
+    if limit is not None and (isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 100):
+        raise ValueError("limit must be an integer between 1 and 100")
+    selected = incident.logs if limit is None else incident.logs[:limit]
+    details = tuple(f"{entry.timestamp} — {entry.level} — {_redact(entry.message)}" for entry in selected)
     if not details:
         summary = "No simulated log entries were supplied."
     else:
-        summary = f"Read {len(details)} simulated log entr{'y' if len(details) == 1 else 'ies'}."
+        count = f"{len(details)} of {len(incident.logs)}" if len(details) < len(incident.logs) else str(len(details))
+        summary = f"Read {count} simulated log entr{'y' if len(details) == 1 else 'ies'}."
     return DiagnosticEvidence(tool_name="read_container_logs", summary=summary, details=details)
 
 

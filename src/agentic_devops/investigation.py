@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .models import DiagnosticEvidence, Incident, InvestigationReport
-from .tools import inspect_container_status, inspect_environment_configuration, read_container_logs
+from .registry import build_default_registry
 
 _ROOT_CAUSE = (
     "The application exits during startup because the required DATABASE_URL "
@@ -26,10 +26,11 @@ def investigate(incident: Incident) -> InvestigationReport:
     if not isinstance(incident, Incident):
         raise TypeError("investigate() requires a validated Incident object")
 
+    tools = build_default_registry(incident)
     evidence: tuple[DiagnosticEvidence, ...] = (
-        inspect_container_status(incident),
-        read_container_logs(incident),
-        inspect_environment_configuration(incident),
+        tools.execute("inspect_container_status", {}),
+        tools.execute("read_container_logs", {"limit": 20}),
+        tools.execute("inspect_environment_configuration", {}),
     )
     log_text = " ".join(evidence[1].details).lower()
     configuration = incident.environment_configuration

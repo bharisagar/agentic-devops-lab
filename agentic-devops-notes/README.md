@@ -1,6 +1,6 @@
 # Agentic DevOps Notes
 
-Hi, I’m Bhari. This is the concept guide for my **Agentic DevOps: Day 1–10** learning series. We’ll start with the ideas, understand how the parts fit together, and then build the hands-on lab in the separate [Agentic DevOps Lab](../README.md).
+Hi, I’m Bhari. This is the concept guide for my **Agentic DevOps: Day 1–10** learning series, with an optional advanced lesson after Day 10. We’ll start with the ideas, understand how the parts fit together, and then build the hands-on lab in the separate [Agentic DevOps Lab](../README.md).
 
 The notes use one example throughout: an assistant that investigates a failed deployment or a container/Kubernetes incident. It gathers evidence through approved tools, finds relevant runbook guidance, and prepares a report for an engineer. It does not make a production change on its own.
 
@@ -21,6 +21,7 @@ The notes use one example throughout: an assistant that investigates a failed de
 - [12. CI/CD and infrastructure as code](12-cicd-and-iac/README.md)
 - [13. Reliability and disaster recovery](13-reliability-and-disaster-recovery/README.md)
 - [14. End-to-end project](14-end-to-end-project/README.md)
+- [Optional advanced lesson: Stateful incident investigation](advanced-stateful-investigation/README.md)
 - [Glossary](glossary/README.md)
 - [Diagram index](diagrams/README.md)
 
