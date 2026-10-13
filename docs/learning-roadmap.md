@@ -6,8 +6,8 @@ We’ll follow the same simulated container-restart incident through all ten day
 
 | Day | Topic | What we build |
 |---|---|---|
-| 1 | Foundation: chatbot, script, and agent | Incident fixture, architecture, deterministic investigation and tests |
-| 2 | Tools: schemas and validation | Fixture-backed diagnostic tool registry; strict input validation; no shell commands |
+| 1 | [Foundation: chatbot, script, and agent](../days/day-01-foundation/README.md) | Incident fixture, architecture, deterministic investigation and tests |
+| 2 | [Tools: schemas and validation](../days/day-02-safe-tools/README.md) | Fixture-backed diagnostic tool registry; strict input validation; no shell commands |
 | 3 | Investigation loop | Model-assisted tool selection, evidence collection, bounded steps and a mock mode for tests |
 | 4 | LangGraph orchestration | Triage, evidence, diagnosis, verification, and report nodes with clear stop conditions |
 | 5 | Runbook retrieval | Local search across selected DevOps notes, with citations in the report |
