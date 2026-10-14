@@ -8,6 +8,7 @@ We’ll build one simulated `orders-api` container-restart investigation over se
 
 - [Day 1: Foundation](days/day-01-foundation/README.md) — understand the incident, system architecture, and the difference between a chatbot, script, and agent.
 - [Day 2: Safe tools and clear contracts](days/day-02-safe-tools/README.md) — inspect the tool registry, schemas, argument validation, and evidence screenshot.
+- [Day 3: The investigation loop](days/day-03-investigation-loop/README.md) — follow evidence-driven tool selection, bounded investigation steps, stop conditions, and a transparent trace.
 - [Full learning roadmap](docs/learning-roadmap.md)
 
 More day folders will be added as each lesson is ready. Shared application code stays under `src/`, synthetic incident fixtures under `scenarios/`, and automated checks under `tests/` so learners can compare how the same project changes from one day to the next.
@@ -18,6 +19,7 @@ More day folders will be added as each lesson is ready. Shared application code 
 days/
   day-01-foundation/       Lesson 1: concepts and starting architecture
   day-02-safe-tools/       Lesson 2: schemas, validation, and screenshot
+  day-03-investigation-loop/ Lesson 3: evidence-driven bounded investigation
 src/agentic_devops/        Shared investigator and approved tools
 scenarios/                 Synthetic incidents and expected test findings
 tests/                     Unit, behavior, and safety tests

@@ -32,14 +32,35 @@ def investigate(incident: Incident) -> InvestigationReport:
         tools.execute("read_container_logs", {"limit": 20}),
         tools.execute("inspect_environment_configuration", {}),
     )
-    log_text = " ".join(evidence[1].details).lower()
-    configuration = incident.environment_configuration
-    configured = set(configuration.configured_variables)
-    database_missing = "DATABASE_URL" in configuration.required_variables and "DATABASE_URL" not in configured
+    return build_report(incident, evidence)
+
+
+def build_report(
+    incident: Incident,
+    evidence: tuple[DiagnosticEvidence, ...],
+) -> InvestigationReport:
+    """Create a finding only from evidence actually collected by the caller."""
+    log_evidence = next((item for item in evidence if item.tool_name == "read_container_logs"), None)
+    config_evidence = next(
+        (item for item in evidence if item.tool_name == "inspect_environment_configuration"),
+        None,
+    )
+    status_evidence = next((item for item in evidence if item.tool_name == "inspect_container_status"), None)
+    log_text = " ".join(log_evidence.details).lower() if log_evidence else ""
+    configuration_text = " ".join(config_evidence.details).lower() if config_evidence else ""
+    database_missing = (
+        "database_url" in configuration_text
+        and "required" in configuration_text
+        and "not configured" in configuration_text
+    )
     log_confirms_missing = "database_url" in log_text and any(
         marker in log_text for marker in ("missing", "not set", "not configured")
     )
-    restart_evidence = incident.container_status.state == "restarting" and incident.container_status.restart_count > 0
+    status_text = " ".join(status_evidence.details).lower() if status_evidence else ""
+    restart_evidence = (
+        any(state in status_text for state in ("state is restarting", "state is exited"))
+        and "restart count is 0" not in status_text
+    )
 
     if database_missing and log_confirms_missing and restart_evidence:
         status = "diagnosed"

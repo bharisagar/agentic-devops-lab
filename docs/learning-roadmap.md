@@ -8,7 +8,7 @@ We’ll follow the same simulated container-restart incident through all ten day
 |---|---|---|
 | 1 | [Foundation: chatbot, script, and agent](../days/day-01-foundation/README.md) | Incident fixture, architecture, deterministic investigation and tests |
 | 2 | [Tools: schemas and validation](../days/day-02-safe-tools/README.md) | Fixture-backed diagnostic tool registry; strict input validation; no shell commands |
-| 3 | Investigation loop | Model-assisted tool selection, evidence collection, bounded steps and a mock mode for tests |
+| 3 | [Investigation loop](../days/day-03-investigation-loop/README.md) | Evidence-driven tool selection, bounded steps, explicit stop conditions, and a readable trace; no model API required |
 | 4 | LangGraph orchestration | Triage, evidence, diagnosis, verification, and report nodes with clear stop conditions |
 | 5 | Runbook retrieval | Local search across selected DevOps notes, with citations in the report |
 | 6 | Safety | Secret redaction, untrusted input tests, tool allowlist and approval boundary |
@@ -23,4 +23,4 @@ The Day 2 tools work on local fixtures. We’ll add safety tests before the opti
 
 ## Model/API plan
 
-Day 1 has no model API call. On Day 3, we can add an optional model provider for tool selection. The rest of the project—including tests and CI—will work with a local mock, so learners can follow along without an API key or paid inference. Free-tier availability and limits depend on the provider and can change. Never put an API key in browser code or Git.
+The early lessons use local, deterministic decisions so every learner can run the project without an API key. Day 3 introduces a replaceable selector interface; a model-backed provider can be added after the workflow and safety boundaries are clear. Tests and CI will continue to work without paid model calls. Free-tier availability and limits depend on the provider and can change. Never put an API key in browser code or Git.

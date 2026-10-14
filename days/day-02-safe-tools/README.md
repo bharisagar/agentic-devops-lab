@@ -2,7 +2,7 @@
 
 On Day 1, the investigator called three Python functions directly. Today, we put a small registry between the investigation and those functions. The registry is the application's allowlist: it describes which tools exist, checks each request, and only then calls the matching function.
 
-The tools still read the same simulated incident fixture. They do not connect to Docker, AWS, the network, or a model. That keeps the lesson focused on how tool requests work before we add model-selected choices on Day 3.
+The tools still read the same simulated incident fixture. They do not connect to Docker, AWS, the network, or a model. On Day 3, a local evidence-based selector will choose among these tools so we can inspect the investigation loop before introducing model-selected choices in a later lesson.
 
 ## What is a tool schema?
 
@@ -83,4 +83,4 @@ The [Day 2 registry demo](evidence/day-2-tool-registry.html) shows the simulated
 
 ## What we have not added yet
 
-There is no model deciding which tool to call. There are no shell commands and no write tools. On Day 3, we can let a model suggest a tool request, but this same application-side validation must remain in front of execution. The tool schema helps the model format a request; the registry decides whether that request is allowed.
+There is no model deciding which tool to call. There are no shell commands and no write tools. On Day 3, a local evidence-based selector will choose the next approved tool so we can understand and test the investigation loop before introducing a model. Any future model suggestion must still pass through this same application-side registry; the model never gets direct execution access.
