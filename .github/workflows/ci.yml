@@ -1,4 +1,4 @@
-name: Day 1 tests
+name: Agentic DevOps lab tests
 
 on:
   push:
@@ -27,5 +27,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install local project and test dependency
         run: python -m pip install -e ".[dev]"
-      - name: Run Day 1 tests
+      - name: Run lab tests
         run: python -m pytest

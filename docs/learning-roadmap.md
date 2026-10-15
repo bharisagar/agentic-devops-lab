@@ -9,7 +9,7 @@ We’ll follow the same simulated container-restart incident through all ten day
 | 1 | [Foundation: chatbot, script, and agent](../days/day-01-foundation/README.md) | Incident fixture, architecture, deterministic investigation and tests |
 | 2 | [Tools: schemas and validation](../days/day-02-safe-tools/README.md) | Fixture-backed diagnostic tool registry; strict input validation; no shell commands |
 | 3 | [Investigation loop](../days/day-03-investigation-loop/README.md) | Evidence-driven tool selection, bounded steps, explicit stop conditions, and a readable trace; no model API required |
-| 4 | LangGraph orchestration | Triage, evidence, diagnosis, verification, and report nodes with clear stop conditions |
+| 4 | [LangGraph orchestration](../days/day-04-langgraph-orchestration/README.md) | Triage, evidence, diagnosis, verification, and report nodes with state, checkpoints, conditional routing, bounded retries, and clear stop conditions |
 | 5 | Runbook retrieval | Local search across selected DevOps notes, with citations in the report |
 | 6 | Safety | Secret redaction, untrusted input tests, tool allowlist and approval boundary |
 | 7 | AWS evidence | Optional read-only ECS checks based on the ECS Deployment Readiness project |
